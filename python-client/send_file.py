@@ -7,7 +7,8 @@ from sh import rsync, cp
 
 from settings import *
 
-data_file = open()
+
+# FILE UTILITIES
 
 def get_file_id(f):
 	try:
@@ -32,6 +33,9 @@ def get_file_loc(f):
 		return os.path.join(POLLY_FILES, f.name)
 	except AttributeError:
 		return os.path.join(POLLY_FILES, f)
+
+
+# BROADCASTING
 
 def send_file(node):
 	fname = os.path.basename(f)
