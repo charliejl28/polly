@@ -3,6 +3,7 @@
 import os
 import hashlib
 import glob
+import json
 from sh import rsync, cp
 
 from settings import *
@@ -32,15 +33,61 @@ def get_file_loc(f):
 	try:
 		return os.path.join(POLLY_FILES, f.name)
 	except AttributeError:
-		return os.path.join(POLLY_FILES, f)
+		fname = os.path.basename(f)
+		return os.path.join(POLLY_FILES, fname)
 
+
+# STATUS UTILITIES
+PACKETS = []
+PORTS = []
+
+def save_status_update():
+	data = {
+		'packets': PACKETS,
+		'ports': PORTS,
+	}
+
+	encoded = json.dumps(data)
+
+	with open(POLLY_STATUS, "w+") as sfile:
+		sfile.write(encoded)
+
+def add_packet(f):
+	global PACKETS
+	loc = get_file_loc(f)
+	ext = get_file_ext(f)
+	i = get_file_id(f)
+	PACKETS.append({
+		'id': i,
+		'type': ext,
+		'file': loc,
+	})
+
+def get_node_name(ip):
+	with open(POLLY_NODES) as nfile:
+		nodes = json.loads(nfile.read())
+		return nodes.get(ip, 'Untitled Node')
+
+def add_port(ip, status, packets):
+	global PORTS
+	PORTS.append({
+		'ip': ip,
+		'status': status,
+		'packets': packets,
+		'name': get_node_name(ip)
+	})
 
 # BROADCASTING
 
 def send_file(node):
-	fname = os.path.basename(f)
 	server = POLLY_USER + "@" + node + ":/"
-	rsync(POLLY_FILES, server, a=True, relative=True, update=True)
+	for line in rsync(POLLY_FILES, server, archive=True, compress=True, relative=True, update=True, itemize_changes=True, _iter=True):
+		if line[0] == "<": #sent
+			pass
+		elif line[0] == ">": #received
+			pass
+		elif line[0] == ".": #nothing
+			pass
 
 def broadcast_files():
 	for n in POLLY_NODES:
