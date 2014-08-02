@@ -1,0 +1,35 @@
+{
+	"packets": [
+		{
+			"id": "1",
+			"type": "mp4",
+			"file": "files/revolution.mp4"
+		},
+		{
+			"id": "2",
+			"type": "mp4",
+			"file": "files/anarchy.mp4"	
+		},
+		{
+			"id": "3",
+			"type": "mp4",
+			"file": "files/kim.mp4"
+		}
+	],
+	"ports": [
+		{
+			"id": "1",
+			"address": "1.1.1.1",
+			"status": "downloading",
+			"name": "base station",
+			"packet" : "1"
+		},
+		{
+			"id": "2",
+			"address": "2.2.2.2",
+			"status": "waiting",
+			"name": "first receiver",
+			"packet" : "2"
+		}
+	]
+}
