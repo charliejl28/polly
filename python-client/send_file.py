@@ -109,5 +109,6 @@ def broadcast_files():
 	for n in POLLY_NODES:
 		send_file(n)
 
-
+if __name__ == "__main__":
+	broadcast_files()
 
