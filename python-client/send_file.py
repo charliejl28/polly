@@ -38,6 +38,7 @@ def get_file_loc(f):
 
 
 # STATUS UTILITIES
+
 PACKETS = []
 PORTS = []
 
@@ -76,6 +77,7 @@ def add_port(ip, status, packets):
 		'packets': packets,
 		'name': get_node_name(ip)
 	})
+
 
 # BROADCASTING
 
