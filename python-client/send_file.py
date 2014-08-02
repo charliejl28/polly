@@ -41,13 +41,11 @@ def get_file_loc(f):
 
 PACKETS = []
 PORTS = []
-TRANSACTIONS = []
 
 def save_status_update():
 	data = {
 		'packets': PACKETS,
 		'ports': PORTS,
-		'transactions': TRANSACTIONS,
 	}
 
 	encoded = json.dumps(data)
