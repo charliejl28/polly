@@ -44,7 +44,6 @@ body {
 }
 
 .node-status {
-  background-color: #FF0000;
   width: 80%;
   height: 80%;
   margin-left: 10%;
@@ -65,4 +64,16 @@ body {
   color: black;
   text-align: center;
   font-size: 20px;
+}
+
+#waiting {
+	background-color: #FF0000;
+}
+
+#downloading {
+	background-color: #0000FF;
+}
+
+#broadcasting {
+	background-color: #00FF00;
 }

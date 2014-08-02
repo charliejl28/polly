@@ -1,5 +1,18 @@
 function setStatus(id, status, packet) {
+  var node_status_id = "#node-status-" + id;
+  var node_title_id = "#node-title-" + id;
+  var node_file_id = "#node-file-" + id;
   
+  if (status == 'waiting') {
+  	$(node_status_id).attr('class', 'node-status waiting'); 
+  } else if (status == 'downloading') {
+  	$(node_status_id).attr('class', 'node-status downloading');
+  } else {
+  	$(node_status_id).attr('class', 'node-status broadcasting');
+  }
+  
+  $(node_file_id).empty();
+  $(node_file_id).append(packet);
 }
 
 function addNode(id, status, packet) {
