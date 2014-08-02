@@ -1,0 +1,69 @@
+// packet representing data object being passed through network
+{
+	"id": unique ID of packet
+	"type": type of packet sent
+ß	"file": file directoy of packet 
+}
+
+// port location for sending and receiving (e.g. a Raspberry Pi or Mac)
+{
+	"address": IP adddress of port
+	"status": status of port (closed = 0, broadcasting = 1, receiving = 2)
+	"name": name of port 
+	"packets" : [packetID, packetID, packetID] (IDs of packets at a given port)
+}
+
+// JSON File
+{
+	"packets": [
+		{
+			packet (from above)
+		}.
+		{
+			packet
+		}
+	],
+	"ports": [
+		{
+			port (from above)
+		},
+		{
+			port
+		},
+	]
+}
+
+// Example file
+{
+	"packets": [
+		{
+			"id": 1
+			"type": "mp4"
+			"file": "files/revolution.mp4"
+		}.
+		{
+			"id": 2
+			"type": "mp4"
+			"file": "files/anarchy.mp4"		
+		},
+		{
+			"id": 3
+			"type": "mp4"
+			"file": "files/kim.mp4"
+		}
+	],
+	"ports": [
+		{
+			"address": 1.1.1.1
+			"status": 1
+			"name": "base station"
+			"packets" : [1, 2, 3]	
+		},
+		{
+			"address": 2.2.2.2
+			"status": 2
+			"name": "first receiver"
+			"packets" : [1]	
+		},
+	]
+}
