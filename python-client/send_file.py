@@ -41,11 +41,13 @@ def get_file_loc(f):
 
 PACKETS = []
 PORTS = []
+TRANSACTIONS = []
 
 def save_status_update():
 	data = {
 		'packets': PACKETS,
 		'ports': PORTS,
+		'transactions': TRANSACTIONS,
 	}
 
 	encoded = json.dumps(data)
@@ -78,18 +80,30 @@ def add_port(ip, status, packets):
 		'name': get_node_name(ip)
 	})
 
+def set_packet(ip, i):
+	global PORTS
+	for p in PORTS:
+		if p['ip'] == ip:
+			if not i in p['packets']:
+				p['packets'].append(i)
+
 
 # BROADCASTING
 
 def send_file(node):
 	server = POLLY_USER + "@" + node + ":/"
 	for line in rsync(POLLY_FILES, server, archive=True, compress=True, relative=True, update=True, itemize_changes=True, _iter=True):
+		parts = line.split()
+
 		if line[0] == "<": #sent
-			pass
+			set_packet(node, parts[1])
 		elif line[0] == ">": #received
-			pass
+			set_packet(current_ip, parts[1])
 		elif line[0] == ".": #nothing
 			pass
+
+	save_status_update()
+	rsync(POLLY_FILES, server, archive=True, compress=True, relative=True, update=True, itemize_changes=True)
 
 def broadcast_files():
 	for n in POLLY_NODES:
