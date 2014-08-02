@@ -19,6 +19,20 @@ def get_file_id(f):
 
 	return hashlib.sha512(data).hexdigest()
 
+def get_file_ext(f):
+	try:
+		name, ext = os.path.splitext(f.name)
+		return ext
+	except AttributeError:
+		name, ext = os.path.splitext(f)
+		return ext
+
+def get_file_loc(f):
+	try:
+		return os.path.join(POLLY_FILES, f.name)
+	except AttributeError:
+		return os.path.join(POLLY_FILES, f)
+
 def send_file(node):
 	fname = os.path.basename(f)
 	server = POLLY_USER + "@" + node + ":/"
