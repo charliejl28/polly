@@ -10,7 +10,7 @@
 	"address": IP adddress of port
 	"status": status of port (closed = 0, broadcasting = 1, receiving = 2)
 	"name": name of port 
-	"packets" : [packetID, packetID, packetID] (IDs of packets at a given port)
+	"packet" : packetID (ID of packet at a given port)
 }
 
 // JSON File
@@ -57,13 +57,13 @@
 			"address": 1.1.1.1
 			"status": 1
 			"name": "base station"
-			"packets" : [1, 2, 3]	
+			"packet" : 1	
 		},
 		{
 			"address": 2.2.2.2
 			"status": 2
 			"name": "first receiver"
-			"packets" : [1]	
+			"packets" : 1
 		},
 	]
 }
