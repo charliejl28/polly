@@ -78,13 +78,6 @@ def add_port(ip, status, packets):
 		'name': get_node_name(ip)
 	})
 
-def set_packet(ip, i):
-	global PORTS
-	for p in PORTS:
-		if p['ip'] == ip:
-			if not i in p['packets']:
-				p['packets'].append(i)
-
 
 # BROADCASTING
 
@@ -94,9 +87,9 @@ def send_file(node):
 		parts = line.split()
 
 		if line[0] == "<": #sent
-			set_packet(node, parts[1])
+			add_port(node, 1, parts[1])
 		elif line[0] == ">": #received
-			set_packet(current_ip, parts[1])
+			add_port(node, 2, parts[1])
 		elif line[0] == ".": #nothing
 			pass
 
