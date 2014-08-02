@@ -66,14 +66,14 @@ body {
   font-size: 20px;
 }
 
-#waiting {
+.waiting {
 	background-color: #FF0000;
 }
 
-#downloading {
+.downloading {
 	background-color: #0000FF;
 }
 
-#broadcasting {
+.broadcasting {
 	background-color: #00FF00;
 }
