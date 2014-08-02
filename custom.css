@@ -1,0 +1,68 @@
+html {
+  width: 100%;
+  height: 100%;
+  font-family: Century Gothic, sans-serif;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  background-color: #10A0FF;
+  margin: 0;
+}
+
+.title-container {
+  width: 100%;
+  height: 200px;
+  background-color: rgba(32, 32, 64, .5);
+}
+
+.title {
+  color: white;
+  font-size: 100px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.subtitle {
+  color: white;
+  font-size: 30px;
+  text-align:center;
+}
+
+.node-container {
+  width: 0px;
+  height: 500px;
+  margin: 0 auto 0 auto;
+}
+
+.node {
+  margin: 50px;
+  float: left;
+  width: 200px;
+  height: 200px;
+}
+
+.node-status {
+  background-color: #FF0000;
+  width: 80%;
+  height: 80%;
+  margin-left: 10%;
+  border-radius = 50%;
+  -moz-border-radius:50%;
+  -webkit-border-radius:50%;
+}
+
+.node-file {
+  color: white;
+  width: 100%;
+  text-align: center;
+  padding-top: 70px;
+}
+
+.node-title {
+  width: 100%;
+  color: black;
+  text-align: center;
+  font-size: 20px;
+}
