@@ -132,15 +132,16 @@ def send_file(node):
 		print line
 		if line[1] == 'f':
 			parts = line.split()
+			fileid = get_file_id(parts[1])
 
 			if line[0] == "<": #sent
 				add_packet(parts[1])
-				add_port(current_node, "waiting", get_file_id(parts[1]))
-				add_port(node, "waiting", get_file_id(parts[1]))
+				add_port(current_node, "waiting", fileid)
+				add_port(node, "waiting", fileid)
 			elif line[0] == ">": #received
 				add_packet(parts[1])
-				add_port(current_node, "waiting", get_file_id(parts[1]))
-				add_port(node, "waiting", get_file_id(parts[1]))
+				add_port(current_node, "waiting", fileid)
+				add_port(node, "waiting", fileid)
 			elif line[0] == ".": #nothing
 				pass
 
@@ -153,17 +154,11 @@ def delete_file(node):
 		parts = line.split()
 		if "deleting" in parts[0]:
 			fileid = get_file_id(parts[1])
-
-			if line[0] == "<": #sent
-				add_packet(parts[1])
-				add_port(current_node, "deleting", fileid)
-				add_port(node, "deleting", fileid)
-			elif line[0] == ">": #received
-				add_packet(parts[1])
-				add_port(node, "deleting", fileid)
-				add_port(current_node, "deleting", fileid)
-			elif line[0] == ".": #nothing
-				pass
+			add_packet(parts[1])
+			add_port(node, "deleting", fileid)
+			add_port(current_node, "deleting", fileid)
+		else:
+			print "Not deleting:", line
 
 	save_status_update()
 
@@ -172,16 +167,12 @@ def delete_file(node):
 		print line
 		parts = line.split()
 		if "deleting" in parts[0]:
-			if line[0] == "<": #sent
-				add_packet(parts[1])
-				add_port(current_node, "deleted", get_file_id(parts[1]))
-				add_port(node, "deleted", get_file_id(parts[1]))
-			elif line[0] == ">": #received
-				add_packet(parts[1])
-				add_port(current_node, "deleted", get_file_id(parts[1]))
-				add_port(node, "deleted", get_file_id(parts[1]))
-			elif line[0] == ".": #nothing
-				pass
+			fileid = get_file_id(parts[1])
+			add_packet(parts[1])
+			add_port(node, "deleting", fileid)
+			add_port(current_node, "deleting", fileid)
+		else:
+			print "Not deleting:", line
 
 	save_status_update()
 

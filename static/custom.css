@@ -77,3 +77,11 @@ body {
 .broadcasting {
 	background-color: #00FF00;
 }
+
+.deleting {
+  background-color: black;
+}
+
+.deleted {
+  display: none;
+}
