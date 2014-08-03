@@ -21,7 +21,10 @@ def deploy():
 		sudo("git checkout .")
 		sudo("git pull origin master")
 
-	sudo("service uwsgi restart")
+	try:
+		sudo("service uwsgi restart")
+	except:
+		pass
 
 def update_auth_keys():
 	sudo("cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys")
