@@ -20,7 +20,7 @@ def upload():
             os.makedirs('/tmp/polly')
         f.save(os.path.join('/tmp/polly', filename))
         sh.python("/srv/polly/python-client/send_file.py")
-        return redirect('/')
+        return redirect('/upload')
 
 @app.route("/network.json")
 def network():
