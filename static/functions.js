@@ -11,8 +11,7 @@ function setStatus(id, status, packet) {
   	$(node_status_id).attr('class', 'node-status broadcasting');
   }
 
-  $(node_file_id).empty();
-  $(node_file_id).append(packet);
+  $(node_file_id).find("a").text(packet);
 }
 
 function addNode(id, status, packet) {
