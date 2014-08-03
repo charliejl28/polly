@@ -178,10 +178,15 @@ def delete_file(node):
 
 
 def broadcast_files():
-	import random, glob, time
+	"""import random, glob, time
 	n = random.choice(ALL_NODES)
 	print "Sending to", n
-	send_file(n)
+	send_file(n)"""
+
+	for n in ALL_NODES:
+		print "Sending to", n
+		send_file(n)
+
 	"""time.sleep(3)
 	print "Deleting from", n
 	files = glob.glob(os.path.join(POLLY_FILES, "*"))
