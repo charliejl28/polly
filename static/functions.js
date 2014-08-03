@@ -4,11 +4,15 @@ function setStatus(id, status, packet) {
   var node_file_id = "#node-file-" + id;
 
   if (status == 'waiting') {
-  	$(node_status_id).attr('class', 'node-status waiting');
+    $(node_status_id).attr('class', 'node-status waiting');
   } else if (status == 'downloading') {
-  	$(node_status_id).attr('class', 'node-status downloading');
+    $(node_status_id).attr('class', 'node-status downloading');
+  } else if (status == 'deleting') {
+    $(node_status_id).attr('class', 'node-status deleting');
+  } else if (status == 'deleted') {
+    $(node_status_id).attr('class', 'node-status deleted');
   } else {
-  	$(node_status_id).attr('class', 'node-status broadcasting');
+    $(node_status_id).attr('class', 'node-status broadcasting');
   }
 
   $(node_file_id).find("a").text(packet);

@@ -16,9 +16,10 @@ def get_file_id(f):
 	try:
 		data = f.read()
 	except AttributeError:
-		data = open(f).read()
-	except IOError:
-		data = f
+		try:
+			data = open(f).read()
+		except IOError:
+			data = f
 
 	return hashlib.sha1(data).hexdigest()
 
@@ -108,6 +109,7 @@ def add_port(ip, status, packets):
 def send_file(node):
 	server = get_server_for_node(node)
 	for line in rsync(POLLY_FILES, server, archive=True, compress=True, relative=True, update=True, itemize_changes=True, dry_run=True, _iter=True):
+		print line
 		if line[1] == 'f':
 			parts = line.split()
 			fileid = get_file_id(parts[1])
@@ -127,6 +129,7 @@ def send_file(node):
 
 	server = POLLY_USER + "@" + node + ":/"
 	for line in rsync(POLLY_FILES, server, archive=True, compress=True, relative=True, update=True, itemize_changes=True, _iter=True):
+		print line
 		if line[1] == 'f':
 			parts = line.split()
 
@@ -143,11 +146,58 @@ def send_file(node):
 
 	save_status_update()
 
+def delete_file(node):
+	server = get_server_for_node(node)
+	for line in rsync(POLLY_FILES, server, archive=True, compress=True, relative=True, delete=True, itemize_changes=True, dry_run=True, _iter=True):
+		print line
+		if line[1] == 'f':
+			parts = line.split()
+			fileid = get_file_id(parts[1])
+
+			if line[0] == "<": #sent
+				add_packet(parts[1])
+				add_port(current_node, "deleting", fileid)
+				add_port(node, "deleting", fileid)
+			elif line[0] == ">": #received
+				add_packet(parts[1])
+				add_port(node, "deleting", fileid)
+				add_port(current_node, "deleting", fileid)
+			elif line[0] == ".": #nothing
+				pass
+
+	save_status_update()
+
+	server = POLLY_USER + "@" + node + ":/"
+	for line in rsync(POLLY_FILES, server, archive=True, compress=True, relative=True, delete=True, itemize_changes=True, _iter=True):
+		print line
+		if line[1] == 'f':
+			parts = line.split()
+
+			if line[0] == "<": #sent
+				add_packet(parts[1])
+				add_port(current_node, "deleted", get_file_id(parts[1]))
+				add_port(node, "deleted", get_file_id(parts[1]))
+			elif line[0] == ">": #received
+				add_packet(parts[1])
+				add_port(current_node, "deleted", get_file_id(parts[1]))
+				add_port(node, "deleted", get_file_id(parts[1]))
+			elif line[0] == ".": #nothing
+				pass
+
+	save_status_update()
+
+
 def broadcast_files():
-	import random
+	import random, glob, time
 	n = random.choice(ALL_NODES)
 	print "Sending to", n
 	send_file(n)
+	time.sleep(3)
+	print "Deleting from", n
+	files = glob.glob(os.path.join(POLLY_FILES, "*"))
+	for f in files:
+		os.remove(f)
+	delete_file(n)
 
 if __name__ == "__main__":
 	broadcast_files()
