@@ -72,7 +72,9 @@ def add_port(ip, status, packets):
 	global PORTS
 	PORTS.append({
 		'ip': ip,
+		'address': ip,
 		'status': status,
+		'packet': packets,
 		'packets': packets,
 		'name': get_node_name(ip)
 	})
