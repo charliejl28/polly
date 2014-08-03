@@ -9,7 +9,8 @@ def get_env_json(var_name, default=None):
 	if default is None:
 		default = var_name + ".json"
 
-	return get_json_data(os.environ.get(var_name, default))
+	p = os.path.join(os.path.dirname(os.path.realpath(__file__)), os.environ.get(var_name, default))
+	return get_json_data(p)
 
 POLLY_NODES = get_env_json("POLLY_NODES", "nodes.json")
 
