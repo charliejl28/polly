@@ -19,7 +19,7 @@ def get_file_id(f):
 	except IOError:
 		data = f
 
-	return hashlib.sha512(data).hexdigest()
+	return hashlib.sha1(data).hexdigest()
 
 def get_file_ext(f):
 	try:
