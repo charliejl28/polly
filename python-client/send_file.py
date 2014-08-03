@@ -141,9 +141,10 @@ def send_file(node):
 	save_status_update()
 
 def broadcast_files():
-	for n in POLLY_NODES:
-		print "Sending to", n
-		send_file(n)
+	import random
+	n = random.choice(ALL_NODES)
+	print "Sending to", n
+	send_file(n)
 
 if __name__ == "__main__":
 	broadcast_files()
