@@ -9,7 +9,7 @@ def hello():
 def network():
     import json
     with open("/tmp/polly/_polly_status.json") as psj:
-        data = json.loads(psj)
+        data = json.loads(psj.read())
 
     return jsonify(**data)
 
