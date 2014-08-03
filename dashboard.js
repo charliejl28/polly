@@ -63,7 +63,10 @@ function parseJSON(JSON_string){
 
 console.log("running dashboard.js");
 
+function startUpdatingPage(){
+	readTextFile("network.json");
+	setInterval(startUpdatingPage, 1000);
+}
 
-readTextFile("network.json");
-
+startUpdatingPage();
 

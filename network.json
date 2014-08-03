@@ -20,14 +20,14 @@
 		{
 			"id": "1",
 			"address": "1.1.1.1",
-			"status": "downloading",
+			"status": "waiting",
 			"name": "base station",
-			"packet" : "1"
+			"packet" : "3"
 		},
 		{
 			"id": "2",
 			"address": "2.2.2.2",
-			"status": "waiting",
+			"status": "downloading",
 			"name": "first receiver",
 			"packet" : "2"
 		}
