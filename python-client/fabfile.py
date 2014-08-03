@@ -17,6 +17,7 @@ def ssh_connect():
 
 def deploy():
 	with cd("/srv/polly"):
+		sudo("pip install -r requirements.txt")
 		sudo("git checkout .")
 		sudo("git pull origin master")
 

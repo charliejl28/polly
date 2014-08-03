@@ -1,9 +1,25 @@
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, request, redirect
+from werkzeug.utils import secure_filename
+import os
+import sh
 app = Flask(__name__)
 
 @app.route("/")
 def hello():
     return render_template("index.html")
+
+@app.route("/upload", methods=['GET', 'POST'])
+def upload():
+    if request.method == 'GET':
+        return render_template("upload.html")
+    else:
+        f = request.files['file']
+        filename = secure_filename(f.filename)
+        if not os.path.exists('/tmp/polly'):
+            os.makedirs('/tmp/polly')
+        f.save(os.path.join('/tmp/polly', filename))
+        sh.python("/srv/polly/python-client/send_file.py")
+        return redirect('/')
 
 @app.route("/network.json")
 def network():
