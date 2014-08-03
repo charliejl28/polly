@@ -71,7 +71,7 @@ function parseJSON(JSON_string){
 			addNode(portID, portStatus, packets[packetID]);
 			ports[portID] = portStatus;
 		}
-		
+
 		if (!foundBroadcast ) {
 			$('#rightline').remove();
 			$('#leftline').remove();
@@ -81,6 +81,6 @@ function parseJSON(JSON_string){
 
 console.log("running dashboard.js");
 
-window.setInterval(function(){ 
-	readTextFile("../static/network.json");
+window.setInterval(function(){
+	readTextFile("/static/network.json");
 }, 1000);
