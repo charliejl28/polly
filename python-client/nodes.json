@@ -1,17 +1,17 @@
 {
 	"104.131.209.164": {
-		"name": "Server 1"
+		"name": "Node 1"
 	},
 	"104.131.208.191": {
-		"name": "Server 2"
+		"name": "Node 2"
 	},
 	"104.131.208.192": {
-		"name": "Server 3"
+		"name": "Node 3"
 	},
 	"104.131.208.193": {
-		"name": "Server 4"
+		"name": "Node 4"
 	},
 	"10.0.11.49": {
-		"name": "Raspberry Pi 1"
+		"name": "RasPi 1"
 	}
 }
