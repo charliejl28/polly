@@ -42,6 +42,7 @@ def get_file_loc(f):
 
 PACKETS = []
 PORTS = []
+ALL_NODES = POLLY_NODES.keys()
 
 def save_status_update():
 	data = {
@@ -72,6 +73,7 @@ def add_port(ip, status, packets):
 	global PORTS
 	PORTS.append({
 		'ip': ip,
+		'id': ALL_NODES.index(ip),
 		'address': ip,
 		'status': status,
 		'packet': packets,
