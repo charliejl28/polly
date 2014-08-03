@@ -150,8 +150,8 @@ def delete_file(node):
 	server = get_server_for_node(node)
 	for line in rsync(POLLY_FILES, server, archive=True, compress=True, relative=True, delete=True, itemize_changes=True, dry_run=True, _iter=True):
 		print line
-		if line[1] == 'f':
-			parts = line.split()
+		parts = line.split()
+		if "deleting" in parts[1]:
 			fileid = get_file_id(parts[1])
 
 			if line[0] == "<": #sent
@@ -170,9 +170,8 @@ def delete_file(node):
 	server = POLLY_USER + "@" + node + ":/"
 	for line in rsync(POLLY_FILES, server, archive=True, compress=True, relative=True, delete=True, itemize_changes=True, _iter=True):
 		print line
-		if line[1] == 'f':
-			parts = line.split()
-
+		parts = line.split()
+		if "deleting" in parts[1]:
 			if line[0] == "<": #sent
 				add_packet(parts[1])
 				add_port(current_node, "deleted", get_file_id(parts[1]))
