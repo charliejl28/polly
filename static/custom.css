@@ -1,7 +1,12 @@
+@font-face {
+    font-family: 'helvetica';
+    src: url(../static/HelveticaNeue-UltraLigExt.otf);
+}
+
 html {
   width: 100%;
   height: 100%;
-  font-family: Century Gothic, sans-serif;
+  font-family: 'helvetica';
 }
 
 body {
@@ -31,29 +36,57 @@ body {
 }
 
 .node-container {
+  padding-top: 50px;
   width: 0px;
   height: 500px;
   margin: 0 auto 0 auto;
 }
 
 .node {
-  margin: 50px;
+  margin: 0px 0px 0px 0px;
   float: left;
-  width: 200px;
+  width: 250px;
   height: 200px;
 }
 
+.line {
+	height: 8px;
+	width: 40px;
+	position: relative;
+	top: 75px;
+	-moz-border-radius: 5px;
+	border-radius: 5px;
+}
+
+.right {
+	float:right;
+}
+
+.left {
+	float:left;
+}
+
+.dot {
+	height: 8px;
+	width: 8px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	margin-left: 2px;
+	margin-right: 2px;
+}
+
 .node-status {
-  width: 80%;
-  height: 80%;
-  margin-left: 10%;
+  width: 160px;
+  height: 160px;
+  margin-left: 45px;
   border-radius: 50%;
   -moz-border-radius:50%;
   -webkit-border-radius:50%;
+  box-shadow: 2px 2px 5px rgba(0,0,0,.3);
 }
 
 .node-file, .node-file a {
-  color: white;
+  color: black;
   width: 100%;
   text-align: center;
   padding-top: 70px;
@@ -67,15 +100,24 @@ body {
 }
 
 .waiting {
-	background-color: #FF0000;
+	background: -webkit-radial-gradient(#FF8080, #FF3010);
+	background: -o-radial-gradient(#FF8080, #FF3010);
+	background: -moz-radial-gradient(#FF8080, #FF3010);
+	background: radial-gradient(#FF8080, #FF3010);
 }
 
 .downloading {
-	background-color: #0000FF;
+	background: -webkit-radial-gradient(#8080FF, #1030FF);
+	background: -o-radial-gradient(#8080FF, #1030FF);
+	background: -moz-radial-gradient(#8080FF, #1030FF);
+	background: radial-gradient(#8080FF, #1030FF);
 }
 
 .broadcasting {
-	background-color: #00FF00;
+	background: -webkit-radial-gradient(#80FF80, #30EE10);
+	background: -o-radial-gradient(#80FF80, #30EE10);
+	background: -moz-radial-gradient(#80FF80, #30EE10);
+	background: radial-gradient(#80FF80, #30EE10);
 }
 
 .deleting {

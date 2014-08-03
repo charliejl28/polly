@@ -1,5 +1,6 @@
 var ports = {};
 var packets = {};
+var currentBroadcastID = -1;
 
 function readTextFile(file)
 {
@@ -21,7 +22,6 @@ function readTextFile(file)
 
 // parse JSON
 function parseJSON(JSON_string){
-
 	console.log("parsing JSON: " + JSON_string);
 
 	// json object
@@ -30,7 +30,7 @@ function parseJSON(JSON_string){
 
 	// all packets
 	var packetsJSON = JSON_object.packets;
-	for	(index = 0; index < packetsJSON.length; index++) {
+	for	(var index = 0; index < packetsJSON.length; index++) {
 		var packetJSON = packetsJSON[index];
 		var id = packetJSON["id"];
 		var fileName = packetJSON["file"];
@@ -40,8 +40,9 @@ function parseJSON(JSON_string){
 	console.log("parsed packets");
 
 	// all ports
+	var foundBroadcast = false;
 	var portsJSON = JSON_object.ports;
-	for (index = 0; index < portsJSON.length; index++){
+	for (var index = 0; index < portsJSON.length; index++){
 		var portJSON = portsJSON[index];
 		var portID = portJSON["id"];
 		var portStatus = portJSON["status"];
@@ -51,6 +52,18 @@ function parseJSON(JSON_string){
 		if (portID in ports){
 			//console.log(index + " " + packets[packetID]);
 			setStatus(portID, portStatus, packets[packetID]);
+			if (portStatus == 'broadcasting') {
+				if (index + 1 < portsJSON.length && portsJSON[index + 1]["status"] == 'downloading') {
+					foundBroadcast = true;
+					if (portID != currentBroadcastID) {
+						currentBroadcastID = portID;
+						$('#rightline').remove();
+						$('#leftline').remove();
+						console.log('yes');
+						connect(portJSON["id"], portsJSON[index + 1]["id"]);
+					}
+				}
+			}
 		}
 
 		// create new node
@@ -58,16 +71,16 @@ function parseJSON(JSON_string){
 			addNode(portID, portStatus, packets[packetID]);
 			ports[portID] = portStatus;
 		}
-
+		
+		if (!foundBroadcast ) {
+			$('#rightline').remove();
+			$('#leftline').remove();
+		}
 	}
 }
 
 console.log("running dashboard.js");
 
-function startUpdatingPage(){
-	readTextFile("/network.json");
-	setInterval(startUpdatingPage, 1000);
-}
-
-startUpdatingPage();
-
+window.setInterval(function(){ 
+	readTextFile("../static/network.json");
+}, 1000);
