@@ -84,5 +84,5 @@ function parseJSON(JSON_string){
 console.log("running dashboard.js");
 
 window.setInterval(function(){
-	readTextFile("/network.json");
+	readTextFile("../static/network.json");
 }, 1000);

@@ -1,12 +1,26 @@
-<!doctype html>
 <html>
 	<head>
+		<link rel="stylesheet" type="text/css" href="../static/custom.css">
 		<title>Upload new File</title>
 	</head>
 	<body>
-		<h1>Upload new File</h1>
-		<form method="post" action="/upload" enctype="multipart/form-data">
-			<p><input type=file name=file><input type=submit value=Upload></p>
-		</form>
+		 <div class = "title-container">
+			<div class = "title">
+				polly
+			</div>
+
+			<div class = "subtitle">
+				blast data without a trace
+			</div>
+		</div>
+		<div class = "upload-title">Upload new File</div>
+		<div class = "form-container">
+			<form method="post" action="/upload" enctype="multipart/form-data">
+				<div class="upload-file-container">
+				   <input type="file" name="file" class="custom-input"></input>
+				</div>
+				<input type=submit value=Upload class="custom-button">
+			</form>
+		</div>
 	</body>
 </html>
