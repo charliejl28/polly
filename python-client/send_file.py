@@ -182,12 +182,12 @@ def broadcast_files():
 	n = random.choice(ALL_NODES)
 	print "Sending to", n
 	send_file(n)
-	time.sleep(3)
+	"""time.sleep(3)
 	print "Deleting from", n
 	files = glob.glob(os.path.join(POLLY_FILES, "*"))
 	for f in files:
 		os.remove(f)
-	delete_file(n)
+	delete_file(n)"""
 
 if __name__ == "__main__":
 	broadcast_files()
