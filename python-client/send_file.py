@@ -70,10 +70,18 @@ def get_node_name(ip):
 	return POLLY_NODES.get(ip, 'Untitled Node')
 
 def add_port(ip, status, packets):
+	if get_file_id(POLLY_STATUS) in packets:
+		return
 	global PORTS
+	try:
+		i = ALL_NODES.index(ip)
+	except ValueError:
+		i = len(ALL_NODES)
+		ALL_NODES.append(ip)
+
 	PORTS.append({
 		'ip': ip,
-		'id': ALL_NODES.index(ip),
+		'id': i,
 		'address': ip,
 		'status': status,
 		'packet': packets,
@@ -85,6 +93,7 @@ def add_port(ip, status, packets):
 # BROADCASTING
 
 def send_file(node):
+	global PORTS, PACKETS
 	server = POLLY_USER + "@" + node + ":/"
 	for line in rsync(POLLY_FILES, server, archive=True, compress=True, relative=True, update=True, itemize_changes=True, dry_run=True, _iter=True):
 		if line[1] == 'f':
@@ -94,17 +103,18 @@ def send_file(node):
 			if line[0] == "<": #sent
 				add_packet(parts[1])
 				add_port(current_node, "broadcasting", fileid)
-				add_port(node, "receiving", fileid)
+				add_port(node, "downloading", fileid)
 			elif line[0] == ">": #received
 				add_packet(parts[1])
-				add_port(node, "broadcasting", fileid)
-				add_port(current_node, "receiving", fileid)
+				add_port(node, "downloading", fileid)
+				add_port(current_node, "broadcasting", fileid)
 			elif line[0] == ".": #nothing
 				pass
 
 	save_status_update()
-	rsync(POLLY_FILES, server, archive=True, compress=True, relative=True, update=True, itemize_changes=True)
-
+	rsync(POLLY_STATUS, server, archive=True, compress=True, relative=True, update=True, itemize_changes=True)
+	PORTS = []
+	PACKETS = []
 
 	server = POLLY_USER + "@" + node + ":/"
 	for line in rsync(POLLY_FILES, server, archive=True, compress=True, relative=True, update=True, itemize_changes=True, _iter=True):
@@ -113,15 +123,19 @@ def send_file(node):
 
 			if line[0] == "<": #sent
 				add_packet(parts[1])
+				add_port(current_node, "waiting", get_file_id(parts[1]))
 				add_port(node, "waiting", get_file_id(parts[1]))
 			elif line[0] == ">": #received
 				add_packet(parts[1])
+				add_port(current_node, "waiting", get_file_id(parts[1]))
 				add_port(node, "waiting", get_file_id(parts[1]))
 			elif line[0] == ".": #nothing
 				pass
 
 	save_status_update()
 	rsync(POLLY_FILES, server, archive=True, compress=True, relative=True, update=True, itemize_changes=True)
+	PORTS = []
+	PACKETS = []
 
 def broadcast_files():
 	for n in POLLY_NODES:
