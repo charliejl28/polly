@@ -88,6 +88,8 @@ def add_port(ip, status, packets):
 	try:
 		i = ALL_NODES.index(ip)
 	except ValueError:
+		# SKIP NON TYPE
+		return
 		i = 0
 		ALL_NODES.insert(0, ip)
 

@@ -1,0 +1,23 @@
+server {
+	listen 80;
+	server_name polly.com;
+	client_max_body_size 50m;
+	uwsgi_read_timeout 6000;
+	uwsgi_send_timeout 6000;
+
+	access_log /srv/nginx-access.log;
+	error_log /srv/nginx-error.log;
+
+	location / {
+		include uwsgi_params;
+		uwsgi_pass unix:/tmp/polly.sock;
+	}
+
+	location /static {
+		alias /srv/polly/static;
+	}
+
+	location /download {
+		alias /tmp/polly;
+	}
+}
