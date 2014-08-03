@@ -193,6 +193,8 @@ def broadcast_files():
 		print "Sending to", n
 		send_file(n)
 
+	save_status_update()
+
 	"""time.sleep(3)
 	print "Deleting from", n
 	files = glob.glob(os.path.join(POLLY_FILES, "*"))

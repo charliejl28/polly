@@ -1,14 +1,14 @@
 {
 	"104.131.209.164": {
-		"name": "do-poly-1"
+		"name": "Server 1"
 	},
 	"104.131.208.191": {
-		"name": "do-poly-2"
+		"name": "Server 2"
 	},
 	"104.131.208.192": {
-		"name": "do-poly-3"
+		"name": "Server 3"
 	},
 	"104.131.208.193": {
-		"name": "do-poly-4"
+		"name": "Server 4"
 	}
 }
