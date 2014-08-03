@@ -31,7 +31,7 @@ function parseJSON(JSON_string){
 	// all packets
 	var packetsJSON = JSON_object.packets;
 	for	(index = 0; index < packetsJSON.length; index++) {
-		packetJSON = packetsJSON[index];
+		var packetJSON = packetsJSON[index];
 		var id = packetJSON["id"];
 		var fileName = packetJSON["file"];
 		packets[id] = fileName;
@@ -42,13 +42,14 @@ function parseJSON(JSON_string){
 	// all ports
 	var portsJSON = JSON_object.ports;
 	for (index = 0; index < portsJSON.length; index++){
-		portJSON = portsJSON[index];
+		var portJSON = portsJSON[index];
 		var portID = portJSON["id"];
 		var portStatus = portJSON["status"];
 		var packetID = portJSON["packet"];
 
 		// update node for existing port
 		if (portID in ports){
+			//console.log(index + " " + packets[packetID]);
 			setStatus(portID, portStatus, packets[packetID]);
 		}
 

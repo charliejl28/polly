@@ -20,9 +20,9 @@
 		{
 			"id": "1",
 			"address": "1.1.1.1",
-			"status": "waiting",
+			"status": "downloading",
 			"name": "base station",
-			"packet" : "3"
+			"packet" : "2"
 		},
 		{
 			"id": "2",

@@ -18,7 +18,7 @@ function setStatus(id, status, packet) {
 function addNode(id, status, packet) {
   var node_status_id = "node-status-" + id;
   var node_title_id = "node-title-" + id;
-  var node_file_id = "node-title-" + id;
+  var node_file_id = "node-file-" + id;
   var div = '<div class = "node">\n<div class = "node-status ' + status + '" id = "';
   div += node_status_id;
   div += '">\n<div class = "node-file" id = "';
