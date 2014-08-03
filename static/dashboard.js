@@ -55,6 +55,7 @@ function parseJSON(JSON_string){
 			if (portStatus == 'broadcasting') {
 				if (index + 1 < portsJSON.length && portsJSON[index + 1]["status"] == 'downloading') {
 					foundBroadcast = true;
+					console.log('found connection');
 					if (portID != currentBroadcastID) {
 						currentBroadcastID = portID;
 						$('#rightline').remove();
@@ -72,10 +73,11 @@ function parseJSON(JSON_string){
 			ports[portID] = portStatus;
 		}
 
-		if (!foundBroadcast ) {
-			$('#rightline').remove();
-			$('#leftline').remove();
-		}
+	}
+	if (!foundBroadcast ) {
+		console.log('did not find connection');
+		$('#rightline').remove();
+		$('#leftline').remove();
 	}
 }
 

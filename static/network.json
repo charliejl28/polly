@@ -27,6 +27,13 @@
 		{
 			"id": "2",
 			"address": "2.2.2.2",
+			"status": "broadcasting",
+			"name": "first receiver",
+			"packet" : "2"
+		},
+		{
+			"id": "3",
+			"address": "2.2.2.2",
 			"status": "downloading",
 			"name": "first receiver",
 			"packet" : "2"
