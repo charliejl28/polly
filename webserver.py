@@ -28,7 +28,6 @@ def network():
     try:
         with open("/tmp/polly/_polly_status.json") as psj:
             data = json.loads(psj.read())
-        os.remove("/tmp/polly/_polly_status.json")
         return jsonify(**data)
     except IOError:
         return jsonify(packets=[], ports=[])
