@@ -17,5 +17,5 @@ DEFAULT_FILES = "/tmp/polly"
 DEFUALT_STATE = "_polly_status.json"
 
 POLLY_USER = "root"
-POLLY_FILES = get_env_json("POLLY_FILES", DEFAULT_FILES)
-POLLY_STATUS = os.path.join(POLLY_FILES, get_env_json("POLLY_STATUS", DEFUALT_STATE))
+POLLY_FILES = os.environ.get("POLLY_FILES", DEFAULT_FILES)
+POLLY_STATUS = os.path.join(POLLY_FILES, os.environ.get("POLLY_STATUS", DEFUALT_STATE))

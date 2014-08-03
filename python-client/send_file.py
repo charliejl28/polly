@@ -65,9 +65,7 @@ def add_packet(f):
 	})
 
 def get_node_name(ip):
-	with open(POLLY_NODES) as nfile:
-		nodes = json.loads(nfile.read())
-		return nodes.get(ip, 'Untitled Node')
+	return POLLY_NODES.get(ip, 'Untitled Node')
 
 def add_port(ip, status, packets):
 	global PORTS
@@ -87,9 +85,11 @@ def send_file(node):
 		parts = line.split()
 
 		if line[0] == "<": #sent
-			add_port(node, 1, parts[1])
+			add_packet(parts[1])
+			add_port(node, 1, get_file_id(parts[1]))
 		elif line[0] == ">": #received
-			add_port(node, 2, parts[1])
+			add_packet(parts[1])
+			add_port(node, 2, get_file_id(parts[1]))
 		elif line[0] == ".": #nothing
 			pass
 
@@ -98,6 +98,7 @@ def send_file(node):
 
 def broadcast_files():
 	for n in POLLY_NODES:
+		print "Sending to", n
 		send_file(n)
 
 if __name__ == "__main__":
