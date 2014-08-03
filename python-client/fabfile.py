@@ -11,6 +11,10 @@ nodes = json.loads(nf.read())
 env.hosts = [n for n in nodes]
 env.user = "root"
 
+def ssh_connect():
+	for n in env.hosts:
+		sudo("ssh root@" + n)
+
 def deploy():
 	with cd("/srv/polly"):
 		sudo("git checkout .")
