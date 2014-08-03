@@ -77,7 +77,7 @@ def add_packet(f):
 	})
 
 def get_node_name(ip):
-	return POLLY_NODES.get(ip, 'Untitled Node')
+	return POLLY_NODES.get(ip, {}).get('name', 'Untitled Node')
 
 def add_port(ip, status, packets):
 	if get_file_id(POLLY_STATUS) in packets:
