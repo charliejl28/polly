@@ -47,6 +47,7 @@ function parseJSON(JSON_string){
 		var portID = portJSON["id"];
 		var portStatus = portJSON["status"];
 		var packetID = portJSON["packet"];
+		var portName = portJSON["name"];
 
 		// update node for existing port
 		if (portID in ports){

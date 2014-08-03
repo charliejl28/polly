@@ -18,7 +18,7 @@ function setStatus(id, status, packet) {
   $(node_file_id).find("a").text(packet);
 }
 
-function addNode(id, status, packet) {
+function addNode(id, status, packet, portName) {
   var node_id = "node-" + id;
   var node_status_id = "node-status-" + id;
   var node_title_id = "node-title-" + id;
@@ -29,20 +29,20 @@ function addNode(id, status, packet) {
   div += node_file_id;
   div += '">\n' + '<a href="/download/' + packet + '">' + packet + '</a>\n</div>\n</div>\n<div class = "node-title" id = "';
   div += node_title_id;
-  div += '">\n Node ' + id + '\n</div>\n</div>';
+  div += '">\n' + portName + '\n</div>\n</div>';
   $('.node-container').append(div);
-  
+
   $('.node-container').width($('.node-container').width() + 250);
 }
 
 function connect(id1, id2) {
 	var nID1 = '#node-' + id1;
 	$(nID1).prepend('<div class = "line right" id = "rightline"></div>');
-	
-	
+
+
 	var nID2 = '#node-' + id2;
 	$(nID2).prepend('<div class = "line left" id = "leftline"></div>');
-	
+
 	for (var x = 0; x < 3; x++) {
 		$('#rightline').append('<div class = "dot right"></div>');
 		$('#leftline').append('<div class = "dot left"></div>');
