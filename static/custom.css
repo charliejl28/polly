@@ -52,7 +52,7 @@ body {
   -webkit-border-radius:50%;
 }
 
-.node-file {
+.node-file, .node-file a {
   color: white;
   width: 100%;
   text-align: center;
