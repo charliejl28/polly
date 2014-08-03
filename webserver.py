@@ -8,10 +8,12 @@ def hello():
 @app.route("/network.json")
 def network():
     import json
-    with open("/tmp/polly/_polly_status.json") as psj:
-        data = json.loads(psj.read())
-
-    return jsonify(**data)
+    try:
+        with open("/tmp/polly/_polly_status.json") as psj:
+            data = json.loads(psj.read())
+        return jsonify(**data)
+    except IOError:
+        return jsonify(packets=[], ports=[])
 
 if __name__ == "__main__":
     app.run()
