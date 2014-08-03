@@ -8,6 +8,7 @@ from sh import rsync, cp
 
 from settings import *
 
+current_node = "127.0.0.1"
 
 # FILE UTILITIES
 
