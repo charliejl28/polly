@@ -44,7 +44,11 @@ PACKETS = []
 PORTS = []
 ALL_NODES = POLLY_NODES.keys()
 
+def get_server_for_node(node):
+	return POLLY_USER + "@" + node + ":/"
+
 def save_status_update():
+	global PORTS, PACKETS
 	data = {
 		'packets': PACKETS,
 		'ports': PORTS,
@@ -54,6 +58,12 @@ def save_status_update():
 
 	with open(POLLY_STATUS, "w+") as sfile:
 		sfile.write(encoded)
+
+	for node in POLLY_NODES:
+		server = get_server_for_node(node)
+		rsync(POLLY_STATUS, server, archive=True, compress=True, relative=True, update=True, itemize_changes=True)
+	PORTS = []
+	PACKETS = []
 
 def add_packet(f):
 	global PACKETS
@@ -93,8 +103,7 @@ def add_port(ip, status, packets):
 # BROADCASTING
 
 def send_file(node):
-	global PORTS, PACKETS
-	server = POLLY_USER + "@" + node + ":/"
+	server = get_server_for_node(node)
 	for line in rsync(POLLY_FILES, server, archive=True, compress=True, relative=True, update=True, itemize_changes=True, dry_run=True, _iter=True):
 		if line[1] == 'f':
 			parts = line.split()
@@ -112,9 +121,6 @@ def send_file(node):
 				pass
 
 	save_status_update()
-	rsync(POLLY_STATUS, server, archive=True, compress=True, relative=True, update=True, itemize_changes=True)
-	PORTS = []
-	PACKETS = []
 
 	server = POLLY_USER + "@" + node + ":/"
 	for line in rsync(POLLY_FILES, server, archive=True, compress=True, relative=True, update=True, itemize_changes=True, _iter=True):
@@ -133,9 +139,6 @@ def send_file(node):
 				pass
 
 	save_status_update()
-	rsync(POLLY_FILES, server, archive=True, compress=True, relative=True, update=True, itemize_changes=True)
-	PORTS = []
-	PACKETS = []
 
 def broadcast_files():
 	for n in POLLY_NODES:
