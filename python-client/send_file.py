@@ -169,8 +169,8 @@ def delete_file(node):
 		if "deleting" in parts[0]:
 			fileid = get_file_id(parts[1])
 			add_packet(parts[1])
-			add_port(node, "deleting", fileid)
-			add_port(current_node, "deleting", fileid)
+			add_port(node, "deleted", fileid)
+			add_port(current_node, "deleted", fileid)
 		else:
 			print "Not deleting:", line
 
