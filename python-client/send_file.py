@@ -61,6 +61,7 @@ def save_status_update():
 		sfile.write(encoded)
 
 	for node in POLLY_NODES:
+		print "Saving status", node
 		server = get_server_for_node(node)
 		rsync(POLLY_STATUS, server, archive=True, compress=True, relative=True, update=True, itemize_changes=True)
 	PORTS = []
@@ -108,6 +109,9 @@ def add_port(ip, status, packets):
 
 def send_file(node):
 	server = get_server_for_node(node)
+	ci = ALL_NODES.index(node)
+	if ci > 0:
+		current_node = ALL_NODES[ci - 1]
 	for line in rsync(POLLY_FILES, server, archive=True, compress=True, relative=True, update=True, itemize_changes=True, dry_run=True, _iter=True):
 		print line
 		if line[1] == 'f':
