@@ -62,7 +62,7 @@ def add_packet(f):
 	PACKETS.append({
 		'id': i,
 		'type': ext,
-		'file': loc,
+		'file': os.path.basename(loc),
 	})
 
 def get_node_name(ip):
