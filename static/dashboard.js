@@ -70,7 +70,7 @@ function parseJSON(JSON_string){
 
 		// create new node
 		else {
-			addNode(portID, portStatus, packets[packetID]);
+			addNode(portID, portStatus, packets[packetID], portName);
 			ports[portID] = portStatus;
 		}
 
