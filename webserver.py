@@ -3,6 +3,7 @@ from werkzeug.utils import secure_filename
 import os
 import sh
 app = Flask(__name__)
+app.debug = True
 
 @app.route("/")
 def hello():
