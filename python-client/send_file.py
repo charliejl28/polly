@@ -86,8 +86,11 @@ def add_port(ip, status, packets):
 	try:
 		i = ALL_NODES.index(ip)
 	except ValueError:
-		i = len(ALL_NODES)
-		ALL_NODES.append(ip)
+		i = 0
+		ALL_NODES.insert(ip, 0)
+
+		for n in ALL_NODES:
+			n['id'] += 1
 
 	PORTS.append({
 		'ip': ip,
