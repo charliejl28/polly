@@ -31,5 +31,5 @@ function addNode(id, status, packet) {
   $('.node-container').width($('.node-container').width() + 300);
 }
 
-addNode(2, 'downloading', 'hello');
-addNode(1, 'waiting', 'No file');
+// addNode(2, 'downloading', 'hello');
+// addNode(1, 'waiting', 'No file');

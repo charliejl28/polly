@@ -47,7 +47,7 @@ body {
   width: 80%;
   height: 80%;
   margin-left: 10%;
-  border-radius = 50%;
+  border-radius: 50%;
   -moz-border-radius:50%;
   -webkit-border-radius:50%;
 }
